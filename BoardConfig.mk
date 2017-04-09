@@ -30,6 +30,12 @@ include $(LOCAL_PATH)/board/*.mk
 TARGET_KMODULES := true
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
+
+# Hack for building without kernel sources
+ifeq ($(TARGET_DEVICE),victor)
+$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
+endif
 # Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
 
