@@ -1,5 +1,5 @@
 # OTA assert
-TARGET_OTA_ASSERT_DEVICE := p9000,P9000,c239v55_dx
+TARGET_OTA_ASSERT_DEVICE := victor,Victor
 
 # Bionic
 

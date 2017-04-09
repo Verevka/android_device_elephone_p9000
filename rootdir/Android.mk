@@ -1,5 +1,5 @@
 LOCAL_PATH:= $(call my-dir)
-ifneq ($(filter p9000,$(TARGET_DEVICE)),)
+ifneq ($(filter victor,$(TARGET_DEVICE)),)
 include $(CLEAR_VARS)
 
 # Device init files
