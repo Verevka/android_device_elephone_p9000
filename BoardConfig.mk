@@ -32,6 +32,9 @@ COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 
+# BLOCK_BASED_OTA
+BLOCK_BASED_OTA := false
+
 # Hack for building without kernel sources
 ifeq ($(TARGET_DEVICE),victor)
 $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
