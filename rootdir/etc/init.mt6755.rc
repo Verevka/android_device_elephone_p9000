@@ -268,6 +268,7 @@ on post-fs-data
     chmod 0666 /dev/madev0
     chmod 0777 /dev/esfp0
 	chmod 0777 /dev/iraf
+	chmod 0777 /dev/irtx
 	chmod 0777 /dev/sn3191
 	chmod 0666 /sys/agold_laser/laser
 #[AGOLD][END]
@@ -276,6 +277,10 @@ on post-fs-data
 	chmod 0666 /sys/class/android_usb/android0/iSerial
 	chmod 0666 /sys/class/android_usb/android0/iProduct
 #[AGOLD]End
+#[AGOLD][Chenpeng][20160420] 
+	chmod 0777 /dev/ft_rw_iic_drv
+#[AGOLD]End
+
 
     chmod 0660 /sys/class/misc/m_acc_misc/accenablenodata
     chmod 0660 /sys/class/misc/m_acc_misc/accactive
@@ -364,6 +369,7 @@ on post-fs-data
 	chown system system /sys/class/misc/m_step_c_misc/step_cflush
 	chown system system /sys/class/misc/m_step_c_misc/step_cdevnum
 #[AGOLD][wangxing][20160201]
+	chmod 0660 /sys/class/misc/m_step_c_misc/step_cactive
 
 #[AGOLD][xiaofulong][20160513]
 	chmod 0664 /sys/bus/i2c/drivers/leds-LM3643/chipinfo
@@ -593,12 +599,14 @@ on post-fs-data
 	chmod 0660 /dev/DW9800AF
 	chmod 0660 /dev/BU64297AF
 	chmod 0660 /dev/DW9763AF
+	chmod 0660 /dev/DW9763XAF
 
 	chown system camera /dev/BU64291AF
 	chown system camera /dev/BU6429AF
 	chown system camera /dev/DW9800AF
 	chown system camera /dev/BU64297AF
 	chown system camera /dev/DW9763AF
+	chown system camera /dev/DW9763XAF
 #agold add end
 
     #MATV
@@ -1649,18 +1657,32 @@ chmod 666 /dev/esfp0
 chmod 777 /system/bin/etsd
 
 service etsd /system/bin/etsd
-    class late_start
-    user system
+	class late_start
+	user system
+	disabled 
+	on property:sys.fingerprint.dolfa=1
+	start etsd
 
+#fingerprintd
 service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
+	class late_start
+	user system
+	disabled 
+	on property:sys.fingerprint.support=1
+	start fingerprintd
 
+#goodix
 service gx_fpd /system/bin/gx_fpd
-    class late_start
-    user root
-    group root system
-#[AGOLD][GUOTUO][2016.02.01] end
+	class late_start
+	user root
+	group root system
+	disabled 
+	on property:sys.fingerprint.goodix=1
+	start gx_fpd
+
+#
+#agold fingerprint end
+#
 
 service ANvRAMAgent /system/bin/agoldnvram
     class main
