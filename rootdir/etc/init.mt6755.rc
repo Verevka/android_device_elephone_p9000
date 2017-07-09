@@ -1652,10 +1652,22 @@ on property:sys.silead.fpsvcd=start
     start fpsvcd
 # @ 2015 silead
 
-#[AGOLD][GUOTUO][2016.02.01] add For fingerprint
+#
+#agold fingerprint start
+#
+
 chmod 666 /dev/esfp0
 chmod 777 /system/bin/etsd
 
+#sunwave
+service sw_fpd /system/bin/fpserver
+	class late_start
+	user root
+	disabled 
+	on property:sys.fingerprint.sunwave=1
+	start sw_fpd
+
+#dolfa
 service etsd /system/bin/etsd
 	class late_start
 	user system
